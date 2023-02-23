@@ -32,6 +32,7 @@ def gen_examples(dataset):
 
 def main(args):
     mini_edit_dataset = EditDataset(args.data_root, args.num_samples_to_use)
+    print(f"Total samples: {len(mini_edit_dataset)}")
     generator_fn = gen_examples(mini_edit_dataset)
 
     print("Creating dataset...")
