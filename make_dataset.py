@@ -34,7 +34,7 @@ def main(args):
     mini_edit_dataset = EditDataset(args.data_root, args.num_samples_to_use)
     generator_fn = gen_examples(mini_edit_dataset)
 
-    print("Creating 🤗 dataset...")
+    print("Creating dataset...")
     mini_ds = Dataset.from_generator(
         generator_fn,
         features=Features(
@@ -45,6 +45,6 @@ def main(args):
     )
 
     if args.push_to_hub:
-        print("Pushing to the 🤗 Hub...")
+        print("Pushing to the Hub...")
         ds_name = f"instruct-pix2pix-{args.num_samples_to_use}-samples"
         mini_ds.push_to_hub(ds_name)
