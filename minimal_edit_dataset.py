@@ -41,13 +41,10 @@ class EditDataset(Dataset):
 
         if self.return_paths:
             return dict(
-                edited=image_0_path,
-                edit=dict(input_image=image_1_path, edit_prompt=edit_prompt),
+                edited=image_0_path, input_image=image_1_path, edit_prompt=edit_prompt
             )
 
         image_0 = Image.open(image_0_path).convert("RGB")
         image_1 = Image.open(image_1_path).convert("RGB")
 
-        return dict(
-            edited=image_1, edit=dict(input_image=image_0, edit_prompt=edit_prompt)
-        )
+        return dict(edited=image_1, input_image=image_0, edit_prompt=edit_prompt)

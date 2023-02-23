@@ -21,7 +21,6 @@ def parse_args():
 def gen_examples(dataset):
     def fn():
         for sample in dataset:
-            print(f"From generator fn: {sample}")
             yield {
                 "input_image": {"path": sample["input_image"]},
                 "edit_prompt": sample["edit_prompt"],
@@ -33,7 +32,6 @@ def gen_examples(dataset):
 
 def main(args):
     mini_edit_dataset = EditDataset(args.data_root, args.num_samples_to_use)
-    print(f"Total samples: {len(mini_edit_dataset)}")
     generator_fn = gen_examples(mini_edit_dataset)
 
     print("Creating dataset...")
@@ -51,6 +49,7 @@ def main(args):
         num_samples = args.num_samples_to_use
         ds_name = f"instructpix2pix-{num_samples}-samples"
         mini_ds.push_to_hub(ds_name)
+
 
 if __name__ == "__main__":
     args = parse_args()
