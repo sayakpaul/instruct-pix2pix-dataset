@@ -47,7 +47,7 @@ def main(args):
     if args.push_to_hub:
         print("Pushing to the Hub...")
         num_samples = args.num_samples_to_use
-        ds_name = f"instruct-pix2pix-{num_samples}-samples"
+        ds_name = f"instructpix2pix-{num_samples}-samples"
         mini_ds.push_to_hub(ds_name)
 
 if __name__ == "__main__":
