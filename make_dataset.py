@@ -21,6 +21,7 @@ def parse_args():
 def gen_examples(dataset):
     def fn():
         for sample in dataset:
+            print(f"From generator fn: {sample}")
             yield {
                 "input_image": {"path": sample["input_image"]},
                 "edit_prompt": sample["edit_prompt"],
