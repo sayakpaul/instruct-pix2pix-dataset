@@ -48,3 +48,7 @@ def main(args):
         print("Pushing to the Hub...")
         ds_name = f"instruct-pix2pix-{args.num_samples_to_use}-samples"
         mini_ds.push_to_hub(ds_name)
+
+if __name__ == "__main__":
+    args = parse_args()
+    main(args)
