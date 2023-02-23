@@ -12,3 +12,4 @@ This repository provides utilities to a minimal dataset for [InstructPix2Pix](ht
 
 ## Example dataset
 
+https://huggingface.co/datasets/sayakpaul/instructpix2pix-1000-samples
