@@ -22,9 +22,9 @@ def gen_examples(dataset):
     def fn():
         for sample in dataset:
             yield {
-                "input_image": {"path": sample["input_image"]},
+                "input_image": {"path": str(sample["input_image"])},
                 "edit_prompt": sample["edit_prompt"],
-                "edited_image": {"path": sample["edited"]},
+                "edited_image": {"path": str(sample["edited"])},
             }
 
     return fn
