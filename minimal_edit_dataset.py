@@ -22,8 +22,11 @@ class EditDataset(Dataset):
         with open(Path(self.path, "seeds.json")) as f:
             seeds = json.load(f)
         shuffle(seeds)
+        if num_samples_to_use is not None:
+            self.seeds = seeds[:num_samples_to_use]
+        else:
+            self.seeds = seeds
 
-        self.seeds = seeds[:num_samples_to_use]
         self.return_paths = return_paths
 
     def __len__(self) -> int:
@@ -35,16 +38,31 @@ class EditDataset(Dataset):
         seed = seeds[torch.randint(0, len(seeds), ()).item()]
         with open(prompt_dir.joinpath("prompt.json")) as fp:
             edit_prompt = json.load(fp)["edit"]
+            original_prompt = json.load(fp)["input"]
+            edited_prompt = json.load(fp)["output"]
+            url = json.load(fp)["url"]
 
         image_0_path = prompt_dir.joinpath(f"{seed}_0.jpg")
         image_1_path = prompt_dir.joinpath(f"{seed}_1.jpg")
 
         if self.return_paths:
             return dict(
-                edited=image_1_path, input_image=image_0_path, edit_prompt=edit_prompt
+                image_url=url,
+                original_image=image_0_path,
+                original_prompt=original_prompt,
+                edit_prompt=edit_prompt,
+                edited_prompt=edited_prompt,
+                edited_image=image_1_path,
             )
 
         image_0 = Image.open(image_0_path).convert("RGB")
         image_1 = Image.open(image_1_path).convert("RGB")
 
-        return dict(edited=image_1, input_image=image_0, edit_prompt=edit_prompt)
+        return dict(
+            image_url=url,
+            original_image=image_0,
+            original_prompt=original_prompt,
+            edit_prompt=edit_prompt,
+            edited_prompt=edited_prompt,
+            edited_image=image_1,
+        )

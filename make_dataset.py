@@ -12,7 +12,7 @@ def parse_args():
         description="Prepare a mini dataset fro InstructPix2Pix style training."
     )
     parser.add_argument("--data_root", type=str)
-    parser.add_argument("--num_samples_to_use", type=int, default=1000)
+    parser.add_argument("--num_samples_to_use", type=int, default=None)
     parser.add_argument("--push_to_hub", action="store_true")
     args = parser.parse_args()
     return args
@@ -22,8 +22,10 @@ def gen_examples(dataset):
     def fn():
         for sample in dataset:
             yield {
-                "input_image": {"path": str(sample["input_image"])},
+                "original_prompt": sample["original_image"],
+                "original_image": {"path": str(sample["input_image"])},
                 "edit_prompt": sample["edit_prompt"],
+                "edited_prompt": sample["edited_prompt"],
                 "edited_image": {"path": str(sample["edited"])},
             }
 
@@ -38,16 +40,20 @@ def main(args):
     mini_ds = Dataset.from_generator(
         generator_fn,
         features=Features(
-            input_image=ImageFeature(),
+            original_prompt=Value("string"),
+            original_image=ImageFeature(),
             edit_prompt=Value("string"),
+            edited_prompt=Value("string"),
             edited_image=ImageFeature(),
         ),
     )
 
     if args.push_to_hub:
         print("Pushing to the Hub...")
-        num_samples = args.num_samples_to_use
-        ds_name = f"instructpix2pix-{num_samples}-samples"
+        ds_name = f"instructpix2pix-clip-filtered"
+        if args.num_samples_to_use is not None:
+            num_samples = args.num_samples_to_use
+            ds_name += f"{num_samples}-samples"
         mini_ds.push_to_hub(ds_name)
 
 
