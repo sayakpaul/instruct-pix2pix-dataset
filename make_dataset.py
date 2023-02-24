@@ -26,7 +26,7 @@ def gen_examples(dataset):
                 "original_image": {"path": str(sample["original_image"])},
                 "edit_prompt": sample["edit_prompt"],
                 "edited_prompt": sample["edited_prompt"],
-                "edited_image": {"path": str(sample["edited"])},
+                "edited_image": {"path": str(sample["edited_image"])},
             }
 
     return fn
