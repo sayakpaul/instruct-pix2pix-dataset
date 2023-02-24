@@ -37,12 +37,11 @@ class EditDataset(Dataset):
         prompt_dir = Path(self.path, name)
         seed = seeds[torch.randint(0, len(seeds), ()).item()]
         with open(prompt_dir.joinpath("prompt.json")) as fp:
-            json_contents = json.load(fp)
-            print(json_contents)
+            json_contents = dict(json.load(fp))
             edit_prompt = json_contents["edit"]
-            original_prompt = json_contents["input"]
-            edited_prompt = json_contents["output"]
-            url = json_contents["url"]
+            original_prompt = json_contents.get("input", "")
+            edited_prompt = json_contents.get("output", "")
+            url = json_contents.get("url", "")
 
         image_0_path = prompt_dir.joinpath(f"{seed}_0.jpg")
         image_1_path = prompt_dir.joinpath(f"{seed}_1.jpg")

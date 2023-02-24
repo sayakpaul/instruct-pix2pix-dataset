@@ -22,8 +22,8 @@ def gen_examples(dataset):
     def fn():
         for sample in dataset:
             yield {
-                "original_prompt": sample["original_image"],
-                "original_image": {"path": str(sample["input_image"])},
+                "original_prompt": sample["original_prompt"],
+                "original_image": {"path": str(sample["original_image"])},
                 "edit_prompt": sample["edit_prompt"],
                 "edited_prompt": sample["edited_prompt"],
                 "edited_image": {"path": str(sample["edited"])},
