@@ -18,6 +18,16 @@ https://huggingface.co/datasets/sayakpaul/instructpix2pix-1000-samples
 
 The full version of the CLIP filtered dataset used for InstructPix2Pix training can be found here: https://huggingface.co/datasets/timbrooks/instructpix2pix-clip-filtered 
 
+With the dataset being on the 🤗 Hub, one can do load the dataset with two lines of code:
+
+```python
+from datasets import load_dataset
+
+dataset = load_dataset("timbrooks/instructpix2pix-clip-filtered", split="train")
+```
+
+And voila 🤗
+
 ## Acknowledgements
 
 The structure of `make_dataset.py` is inspired by Nate Raw's [notebook](https://gist.github.com/nateraw/c91fb548c3a749cfbe6436d555a547b0). 
